@@ -9,7 +9,7 @@
 		name:'goods',
 		data () {
 	    return {
-	      msg: '这是商品列表'
+	      msg: '商品列表'
 	    }
 	  }
 	};

@@ -10,6 +10,13 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    '/api/': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api/': ''
+        }
+     },
     proxyTable: {},
 
     // Various Dev Server settings
