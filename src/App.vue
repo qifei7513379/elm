@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-  	<headerNav></headerNav>
+  	<v_header :seller="seller"></v_header>
   	<div class="tab">
   		<div class="tab-item">
-  			<router-link to="/">商品</router-link>
+  			<router-link to="/goods">商品</router-link>
   		</div>
   		<div class="tab-item">
   			<router-link to="/ratings">评论</router-link>
@@ -18,23 +18,37 @@
 </template>
 
 <script>
-	import headerNav from '@/components/header/header.vue'
+	import v_header from '@/components/header/header.vue'
 	
 	export default {
-		components: { headerNav }
+		data () {
+	    return {
+	      seller:{}
+	    }
+	 },
+	 	created () {
+	 		  // GET /someUrl
+		  this.$http.get('http://localhost:3000/seller').then(response => {
+				
+		    // get body data
+		    this.someData = response.body;
+			if(this.someData.errno == 0){
+				this.seller = response.body.data;
+				console.log(this.seller)
+			}
+				
+		  }, response => {
+		    // error callback
+		  });
+	 	},
+		components: { v_header }
 	}
 </script>
 
 <style>
-	
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-.tab {width: 100%;display: flex;height: 40px;line-height: 40px;}
-.tab-item{flex: 1;}
+
+.tab {width: 100%;display: flex;height: 40px;line-height: 40px;border-bottom: 0.5px solid rgba(7,17,27,.1);}
+.tab-item{flex: 1;font-size: 14px;color: rgb(77,85,93);line-height: 40px;text-align: center;}
+.tab-item>a{display: block;height: 100%;}
+.router-link-active{color: rgb(240,20,20);}
 </style>
